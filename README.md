@@ -6,62 +6,78 @@
 ---
 
 ## Overview
-TrashDump is an innovative Android application designed to optimize janitorial efforts. Utilizing advanced algorithms and intuitive design, our app makes managing trash collection efficient and effective.
-
----
-
-## 📦 Key Components
-
-### `TrashBag`
-- **Description**: Manages the details of individual trash bags.
-- **Features**:
-  - Unique identification
-  - Size and content tracking
-
-### `Trip`
-- **Description**: Represents a collection trip.
-- **Features**:
-  - Route optimization
-  - Time and resource management
-
-### `TripOptimizer`
-- **Description**: Core algorithm for optimizing trash collection trips.
-- **Features**:
-  - Efficient path calculation
-  - Resource allocation strategies
-
----
+TrashDump is an sample Android application designed to ### Solving the Effective Janitor Problem with Android, with only JAVA
 
 ## 📚 Documentation
 
-Detailed documentation for each class, including methods, usage examples, and model explanations.
+Main componnents used for this project
 
-- `TrashBag`: [Documentation Link]
-- `Trip`: [Documentation Link]
-- `TripOptimizer`: [Documentation Link]
+- `TrashBag`:
+```
+public class TrashBag {
+    private final double weight;
 
+    public TrashBag(double weight) {
+        this.weight = weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+}
+```
+
+- `Trip`: 
+```
+public class Trip {
+    private List<TrashBag> bags;
+
+    public Trip() {
+        bags = new ArrayList<>();
+    }
+
+    public List<TrashBag> getBags() {
+        return bags;
+    }
+
+    public void addBag(TrashBag bag) {
+        bags.add(bag);
+    }
+}
+```
+
+- `TripOptimizer`:
+```
+public class TripOptimizer {
+    public static List<Trip> calculateMinimalTrips(List<TrashBag> trashBags) {
+        List<Trip> trips = new ArrayList<>();
+        List<TrashBag> remainingBags = new ArrayList<>(trashBags);
+
+        remainingBags.sort((bag1, bag2) -> Double.compare(bag2.getWeight(), bag1.getWeight()));
+
+        while (!remainingBags.isEmpty()) {
+            Trip trip = new Trip(); // must declare?
+            double currentWeight = 0;
+
+            for (int i = 0; i < remainingBags.size(); i++) {
+                TrashBag bag = remainingBags.get(i);
+
+                if (currentWeight + bag.getWeight() <= 3.0) {
+                    trip.addBag(bag);
+                    currentWeight += bag.getWeight();
+                    remainingBags.remove(i); // this is expensive maybe?
+                    i--;
+                } else {
+                    break;
+                }
+            }
+
+            trips.add(trip);
+        }
+
+        return trips;
+    }
+}
+```
 ---
 
-## 🛠️ Getting Started
-
-Instructions on how to set up the project, build the app, and run tests.
-
----
-
-## 🤝 Contributing
-
-Guidelines for contributing to the project, including code style, pull request process, and issue reporting.
-
----
-
-## 📞 Contact
-
-Contact information for the project maintainers.
-
----
-
-## 📃 License
-
-Details about the project's license.
-
----
