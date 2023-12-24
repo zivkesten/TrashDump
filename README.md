@@ -6,7 +6,7 @@
 ---
 
 ## Overview
-TrashDump is an sample Android application designed to ### Solving the Effective Janitor Problem with Android, with only JAVA
+TrashDump is an sample Android application designed to Solve the Effective Janitor Problem with Android, with only JAVA
 
 ## 📚 Documentation
 
